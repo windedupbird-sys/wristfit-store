@@ -83,7 +83,7 @@ async function load(){
     document.getElementById("updated").textContent =
       PRICES ? "Prices checked: " + PRICES.checked_at + " (SGD)" : "First crawl pending — showing RRP only";
     document.getElementById("built").textContent = new Date().toLocaleDateString("en-SG");
-    renderFilters(); render();
+    render();
   }catch(e){
     document.getElementById("grid").innerHTML = "<div class='card'>Failed to load data. " + e + "</div>";
   }
@@ -105,6 +105,7 @@ function priceEntries(model){
   return res;
 }
 function render(){
+  // brand filter chips (rendered inline each time)
   const brands = ["all", ...new Set(MODELS.map(m=>m.brand))];
   document.getElementById("filters").innerHTML = brands.map(b =>
     `<button class="${activeBrand===b?'on':''}" onclick="activeBrand='${b}';render()">${b==="all"?"All brands":b}</button>`).join("");
