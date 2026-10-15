@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-SG">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WristFit SG Store — Live Watch Price Tracker for Singapore</title>
+<meta name="description" content="Daily-updated SGD prices for small-wrist friendly watches in Singapore: Tudor, Seiko, Tissot, Citizen, Hamilton, Longines, Cartier and more. AD vs grey, price history, fit-first picks.">
+<link rel="canonical" href="https://wristfitsg.store/">
+<meta property="og:title" content="WristFit SG Store — Live Watch Prices in Singapore">
+<meta property="og:description" content="Daily-updated SGD watch prices across SG retailers. Fit-first: every model sized for 6–7 inch wrists.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wristfitsg.store/">
+<style>
+:root{--bg:#0d1117;--fg:#e6edf3;--dim:#8b949e;--acc:#58a6ff;--card:#161b22;--line:#30363d;--ok:#3fb950;--warn:#d29922}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 'Segoe UI',system-ui,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:24px 16px 64px}
+header{border-bottom:1px solid var(--line);padding:18px 0;margin-bottom:8px}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{background:var(--acc);color:#0d1117;font-weight:800;border-radius:8px;padding:4px 10px}
+h1{font-size:22px;margin:0}
+.tag{color:var(--dim);font-size:13.5px;margin:6px 0 0}
+.hub{font-size:12.5px;color:var(--dim);margin-top:6px}
+.hub a{color:var(--acc);text-decoration:none}
+.updated{font-size:12px;color:var(--ok);margin:14px 0 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.card:hover{border-color:var(--acc)}
+.brandline{display:flex;justify-content:space-between;align-items:baseline}
+.b{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.fit{font-size:11px;color:var(--acc);border:1px solid var(--acc);border-radius:999px;padding:1px 8px;white-space:nowrap}
+.name{font-size:16.5px;font-weight:700;margin:4px 0 2px}
+.nick{color:var(--dim);font-size:12.5px;margin-bottom:8px}
+.pricerow{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-top:1px dashed var(--line)}
+.pricerow:first-of-type{border-top:none}
+.retailer{font-size:12.5px;color:var(--dim)}
+.price{font-weight:700;font-size:14.5px}
+.price.na{color:var(--dim);font-weight:400}
+.best{color:var(--ok);font-size:10.5px;text-transform:uppercase;letter-spacing:.05em}
+.msrp{color:var(--dim);font-size:11.5px;margin-top:6px}
+.specs{font-size:11.5px;color:var(--dim);margin-top:4px}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--dim);font-size:12px}
+a{color:var(--acc)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 4px}
+.filters button{background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer;font-size:12.5px}
+.filters button.on{border-color:var(--acc);color:var(--acc)}
+.note{background:#12172b;border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:12.5px;color:var(--dim);margin:14px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand"><span class="logo">WF</span><h1>WristFit SG Store</h1></div>
+  <p class="tag">Live watch price tracker for Singapore — fit-first: every model sized for 6–7″ wrists.</p>
+  <p class="hub">Companion to <a href="https://wristfitsg.com">wristfitsg.com</a> · Fit Checker · Paper Tape · Lug-to-Lug Guide</p>
+  <p class="updated" id="updated">checking…</p>
+</header>
+
+<div class="note" id="banner">Prices collected from SG/AU retailers daily. AD = authorised dealer · Grey = secondhand/parallel market ask (negotiable, not a transaction price). FX: AU$→S$ fixed-rate reference. Not affiliated with any retailer. Prices may vary — always confirm with the seller.</div>
+
+<div class="filters" id="filters"></div>
+<div class="grid" id="grid"></div>
+
+<footer>
+  <p><b>How this works:</b> A crawler collects listed prices daily from participating retailers and marketplaces. AD prices are recommended retail; grey prices are listing asks. 30-day history per model coming once the pipeline has a week of data. Last built: <span id="built"></span>.</p>
+  <p>© WristFit SG · <a href="https://wristfitsg.com/about.html">Method &amp; editorial stance</a> · corrections: wristfitsg@gmail.com</p>
+</footer>
+</div>
+
+<script>
+let MODELS = [];
+let PRICES = null;
+let activeBrand = "all";
+
+async function load(){
+  try{
+    const [m, p] = await Promise.all([
+      fetch("data/models.json").then(r=>r.json()),
+      fetch("data/prices.json").then(r=>r.json()).catch(()=>null)
+    ]);
+    MODELS = m.models;
+    PRICES = p;
+    document.getElementById("updated").textContent =
+      PRICES ? "Prices checked: " + PRICES.checked_at + " (SGD)" : "First crawl pending — showing RRP only";
+    document.getElementById("built").textContent = new Date().toLocaleDateString("en-SG");
+    renderFilters(); render();
+  }catch(e){
+    document.getElementById("grid").innerHTML = "<div class='card'>Failed to load data. " + e + "</div>";
+  }
+}
+function priceEntries(model){
+  const res = [];
+  if (PRICES && PRICES.models && PRICES.models[model.slug]){
+    for (const e of PRICES.models[model.slug]){
+      let sgd = e.price_sgd;
+      if (sgd == null && e.price_aud) sgd = Math.round(e.price_aud * (PRICES.fx_aud_sgd||0.88));
+      if (sgd == null && e.price_sgd == null) { res.push({retailer:e.retailer, sgd:null, url:e.url, kind:e.kind}); continue; }
+      res.push({retailer:e.retailer, sgd, url:e.url, kind:e.kind});
+    }
+  }
+  // fallback: MSRP as reference row if nothing collected yet
+  if (!res.length){
+    res.push({retailer:"RRP (no live price yet)", sgd:model.msrp_sgd, url:"https://wristfitsg.com", kind:"rrp"});
+  }
+  return res;
+}
+function render(){
+  const brands = ["all", ...new Set(MODELS.map(m=>m.brand))];
+  document.getElementById("filters").innerHTML = brands.map(b =>
+    `<button class="${activeBrand===b?'on':''}" onclick="activeBrand='${b}';render()">${b==="all"?"All brands":b}</button>`).join("");
+  const grid = document.getElementById("grid");
+  grid.innerHTML = MODELS.filter(m=>activeBrand==="all"||m.brand===activeBrand).map(m=>{
+    const rows = priceEntries(m);
+    const valid = rows.filter(r=>r.sgd!=null);
+    const best = valid.length ? Math.min(...valid.map(r=>r.sgd)) : null;
+    return `<div class="card">
+      <div class="brandline"><span class="b">${m.brand}</span><span class="fit">${m.wrist_fit}</span></div>
+      <div class="name">${m.model}</div>
+      <div class="nick">${m.nickname} · ref ${m.ref}</div>
+      ${rows.map(r=>`<div class="pricerow"><span class="retailer">${r.retailer}</span><span class="price ${r.sgd==null?'na':''}">${r.sgd==null?"—":("S$"+r.sgd.toLocaleString())}</span></div>`).join("")}
+      ${best!=null?`<div class="best">▲ cheapest ${best===m.msrp_sgd?"at RRP":"S$"+best.toLocaleString()}</div>`:""}
+      <div class="msrp">RRP S$${m.msrp_sgd.toLocaleString()}</div>
+      <div class="specs">${m.diameter}mm case · L2L ${m.lug_to_lug}mm</div>
+    </div>`;
+  }).join("");
+}
+load();
+</script>
+</body>
+</html>
