@@ -1,1 +1,37 @@
-{"checked_at":null,"fx_aud_sgd":0.88,"models":{}}
+{
+  "checked_at": "2026-10-15 12:56:09",
+  "fx_aud_sgd": 0.88,
+  "source": "thehourglass.com/en-au catalog (scraped via browser)",
+  "models": {
+    "tudor-ranger-39": [
+      {
+        "retailer": "The Hour Glass (AU)",
+        "price_aud": 5110.0,
+        "kind": "AD",
+        "url": "https://www.thehourglass.com/en-au/catalog/tudor"
+      }
+    ],
+    "tudor-black-bay-54-blue-bracelet": [
+      {
+        "retailer": "The Hour Glass (AU)",
+        "price_aud": 6630.0,
+        "kind": "AD",
+        "url": "https://www.thehourglass.com/en-au/catalog/tudor"
+      }
+    ],
+    "tudor-black-bay-54-black-bracelet": [
+      {
+        "retailer": "The Hour Glass (AU)",
+        "price_aud": 6630.0,
+        "kind": "AD",
+        "url": "https://www.thehourglass.com/en-au/catalog/tudor"
+      },
+      {
+        "retailer": "The Hour Glass (AU)",
+        "price_aud": 6290.0,
+        "kind": "AD",
+        "url": "https://www.thehourglass.com/en-au/catalog/tudor"
+      }
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+-> tudor-black-bay-54-lagoon-blue
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=M79000-0001 (HTTP Error 404: Not Found)
+-> tudor-black-bay-54-blue-bracelet
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=M79000B-0001 (HTTP Error 404: Not Found)
+-> tudor-black-bay-54-black-bracelet
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=M79000N-0002 (HTTP Error 404: Not Found)
+-> tudor-pelagos-39
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=M25407N-0001 (HTTP Error 404: Not Found)
+-> tudor-ranger-39
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=M79950-0001 (HTTP Error 404: Not Found)
+-> tudor-black-bay-one-36
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=M79640-0001 (HTTP Error 404: Not Found)
+-> tissot-prx-powermatic-35mm
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=T137.207.21.041.00 (HTTP Error 404: Not Found)
+-> seiko-5-sports-38mm
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=SRPE55K1 (HTTP Error 404: Not Found)
+-> citizen-tsuyosa-automatic-37
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=NJ0150 (HTTP Error 404: Not Found)
+-> orient-bambino-v2-40
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=RA-AP0002S (HTTP Error 404: Not Found)
+-> hamilton-khaki-field-38
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=H70455533 (HTTP Error 404: Not Found)
+-> longines-conquest-38
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=L3.430.4.92.6 (HTTP Error 404: Not Found)
+-> certina-ds-action-diver-38
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=C032.807.11.051.00 (HTTP Error 404: Not Found)
+-> cartier-tank-must-large
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=WSTA0041 (HTTP Error 404: Not Found)
+-> rolex-yacht-master-37
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=M268622-0002 (HTTP Error 404: Not Found)
+-> baltic-aquascaphe-gmt-mk2
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=BSG-GMT-MK2 (HTTP Error 404: Not Found)
+-> nomos-club-campus-38
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=708 (HTTP Error 404: Not Found)
+-> junghans-max-bill-38
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=027/3500.02 (HTTP Error 404: Not Found)
+-> hamilton-khaki-field-murph-38
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=H70405160 (HTTP Error 404: Not Found)
+-> seiko-king-seiko-spb279
+  ! fetch failed: https://www.thehourglass.com/en-AU/catalogsearch/result/?q=SPB279J1 (HTTP Error 404: Not Found)
+wrote data/prices.json

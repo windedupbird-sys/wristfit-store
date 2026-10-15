@@ -60,7 +60,8 @@ def crawl_carousell(query):
     return None
 
 def main():
-    models_path = os.path.join(BASE, "..", "data", "models.json")
+    models_path = os.path.join(BASE, "data", "models.json")
+    out_path = os.path.join(BASE, "data", "prices.json")
     models = json.load(open(models_path, encoding="utf-8"))
     out = {"checked_at": time.strftime("%Y-%m-%d %H:%M:%S"), "fx_aud_sgd": 0.88, "models": {}}
     for m in models["models"]:
@@ -72,7 +73,7 @@ def main():
             entries.append(thg)
         out["models"][slug] = entries
         time.sleep(2)  # be polite
-    with open(os.path.join(BASE, "..", "data", "prices.json"), "w", encoding="utf-8") as f:
+    with open(out_path, "w", encoding="utf-8") as f:
         json.dump(out, f, indent=2)
     print("wrote data/prices.json")
 
